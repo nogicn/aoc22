@@ -1,7 +1,7 @@
 use text_io::{self, read};
 
 
-fn day2(){
+fn _day2(){
     let mut calc = 0;
     while true {
         let mut input: String = read!("{}\n");
@@ -40,7 +40,60 @@ fn day2(){
     println!("{}",calc);
 }
 
+fn day3(){
+    let mut alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let mut alphabet_lower = "abcdefghijklmnopqrstuvwxyz";
+    let mut count = 0;
+    while true {
+        let mut unos1: String = read!("{}\n");
+        if unos1 == "KRAJ" { break; }
+        let mut unos2: String = read!("{}\n");
+        let mut unos3: String = read!("{}\n");
+        let mut tmpCount = 0;
+        for p in 0..unos1.len() {
+            let char = unos1.get(p..p+1).unwrap();
+            if unos2.contains(char) {
+                if unos3.contains(char) {
+                    if alphabet.contains(char) && (alphabet.find(char).unwrap_or(0)+27) > tmpCount {
+                        tmpCount = (alphabet.find(char).unwrap_or(0)+27);
+                        break;
+                    }
+                    if alphabet_lower.contains(char) && (alphabet_lower.find(char).unwrap_or(0)+1) > tmpCount {
+                        tmpCount = alphabet_lower.find(char).unwrap_or(0)+1;
+                        break;
+                    }
+                }
+                //println!("{} {} {}" ,char,(alphabet.find(char).unwrap_or(0)+27), (alphabet_lower.find(char).unwrap_or(0)+1));
+                
+            }
+        }
+        /*
+        pt1
+        let mut unos: String = read!("{}\n");
+        if unos == "KRAJ" { break; }
+        let mut prvi = unos.get(0..(unos.len()/2)).unwrap();
+        let mut drugi  = unos.get(unos.len()/2..).unwrap();
+        let mut tmpCount = 0;
+        for p in 0..drugi.len() {
+            let char = drugi.get(p..p+1).unwrap();
+            if prvi.contains(char) {
+                //println!("{} {} {}" ,char,(alphabet.find(char).unwrap_or(0)+27), (alphabet_lower.find(char).unwrap_or(0)+1));
+                if alphabet.contains(char) && (alphabet.find(char).unwrap_or(0)+27) > tmpCount {
+                    tmpCount = (alphabet.find(char).unwrap_or(0)+27);
+                    break;
+                }
+                if alphabet_lower.contains(char) && (alphabet_lower.find(char).unwrap_or(0)+1) > tmpCount {
+                    tmpCount = alphabet_lower.find(char).unwrap_or(0)+1;
+                    break;
+                }
+            }
+        } */
+        //println!("");
+        count += tmpCount;
+    }
+    println!("{}",count);
+}
 
 fn main() {
-    day2();
+    day3()
 }
