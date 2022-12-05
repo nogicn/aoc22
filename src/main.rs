@@ -94,6 +94,69 @@ fn day3(){
     println!("{}",count);
 }
 
+fn _day4(){
+    let mut count = 0;
+    while true {
+        let mut unos: String = read!("{}\n");
+        if unos == "KRAJ" { break; }
+        let mut prviod = unos.split(",").collect::<Vec<&str>>()[0].split("-").collect::<Vec<&str>>()[0].parse::<i32>().unwrap();
+        let mut prvido = unos.split(",").collect::<Vec<&str>>()[0].split("-").collect::<Vec<&str>>()[1].parse::<i32>().unwrap();
+        let mut drugiod = unos.split(",").collect::<Vec<&str>>()[1].split("-").collect::<Vec<&str>>()[0].parse::<i32>().unwrap();
+        let mut drugido = unos.split(",").collect::<Vec<&str>>()[1].split("-").collect::<Vec<&str>>()[1].parse::<i32>().unwrap();
+        //create array with numbers ranging from x to y
+        let mut array = (prviod..prvido+1).collect::<Vec<i32>>();
+        let mut array2 = (drugiod..drugido+1).collect::<Vec<i32>>();
+        //println!("\n{:?} {:?}\n", array, array2);
+
+        for x in array {
+            if array2.contains(&x) {
+                count += 1;
+                break
+            }
+        }
+        /* 
+        if (prviod <= drugiod || prvido >= drugido) 
+        || (drugiod<= prviod  || drugido>=prvido) {
+            count +=1;
+            println!("\nGOTCHA {}-{}  {}-{}\n",prviod,prvido,drugiod,drugido);
+        }*/
+    }
+    println!("{}",count);
+}
+
+fn day5(){
+    let mut unos1: String = read!("{}\n");
+    let mut unos2: String = read!("{}\n");
+    let mut unos3: String = read!("{}\n");
+    let mut unos4: String = read!("{}\n");
+    let mut unos5: String = read!("{}\n");
+    let mut unos6: String = read!("{}\n");
+    let mut unos7: String = read!("{}\n");
+    let mut unos8: String = read!("{}\n");
+    let mut unos9: String = read!("{}\n");
+    let mut skupina = [unos1,unos2,unos3,unos4,unos5,unos6,unos7,unos8,unos9];
+    let mut unos: String = read!("{}\n");
+    while unos != "KRAJ" {
+        let mut inputProcessed = unos.split(" ").collect::<Vec<&str>>();
+        let koliko = inputProcessed[0].parse::<i32>().unwrap();
+        let odkud = inputProcessed[1].parse::<i32>().unwrap();
+        let dokud = inputProcessed[2].parse::<i32>().unwrap();
+        let mut tmp: String = String::new();
+        for _ in 0..koliko {
+            tmp.push(skupina[(odkud-1) as usize].pop().unwrap());
+            
+        }
+        for _ in 0..koliko {
+            skupina[(dokud-1) as usize].push(tmp.pop().unwrap());
+        }
+        unos = read!("{}\n");
+    }
+    for x in skupina {
+        print!("{}",x.get((x.len()-1) as usize..).unwrap());
+    }
+    println!("");
+}
+
 fn main() {
-    day3()
+    day5()
 }
