@@ -157,6 +157,25 @@ fn day5(){
     println!("");
 }
 
+use itertools::Itertools;
+fn day6(){
+    let mut unos: String = read!("{}\n");
+    let mut trenutni: Vec<&str> = vec![unos.get(0..1).unwrap(),unos.get(1..2).unwrap(),unos.get(2..3).unwrap(),unos.get(3..4).unwrap(),unos.get(4..5).unwrap(),unos.get(5..6).unwrap(),unos.get(6..7).unwrap(),unos.get(7..8).unwrap(),unos.get(8..9).unwrap(),unos.get(9..10).unwrap(),unos.get(10..11).unwrap(),unos.get(11..12).unwrap(),unos.get(12..13).unwrap(),unos.get(13..14).unwrap()];
+    for x in 14..unos.len(){
+        let mut tmp = trenutni.clone().into_iter().unique().collect::<Vec<&str>>();
+        tmp.dedup();
+        println!("{:?} {:?}", trenutni, tmp);
+        if trenutni.eq(&tmp) && x != 14{
+            println!("{}",x);
+            break;
+        }else{
+            trenutni.remove(0);
+            trenutni.push(unos.get(x..x+1).unwrap());
+        }    
+    }
+}
+
 fn main() {
-    day5()
+    day6();
+    
 }
